@@ -56,9 +56,12 @@ class StudentGroup(models.Model):
         verbose_name_plural = "Группы"
 
     def __str__(self):
-        return self.teacher
+        return "{}".format(self.teacher.__str__())
 
 
+class StudentGroupRoom(models.Model):
+    student_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
 
 
