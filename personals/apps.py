@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class PersonalsConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'personals'
+    verbose_name = 'Персонал'
