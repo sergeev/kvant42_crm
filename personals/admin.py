@@ -1,6 +1,24 @@
 from django.contrib import admin
 
-from .models import Teacher, Organization
+from .models import Teacher, Organization, Event, Staff
+
+
+@admin.register(Staff)
+class StaffList(admin.ModelAdmin):
+    list_display = ('account_id', 'organization')
+
+    class META:
+        verbose_name = 'Сотрудники'
+        verbose_name_plural = 'Сотрудники'
+
+
+@admin.register(Event)
+class EventList(admin.ModelAdmin):
+    list_display = ('staff_id', 'events_name')
+
+    class META:
+        verbose_name = 'Мероприятия'
+        verbose_name_plural = 'Мероприятия'
 
 
 @admin.register(Teacher)

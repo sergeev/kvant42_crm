@@ -14,7 +14,9 @@ python3 manage.py migrate
 ````
 ###### Обновить или добавить новые миграции НАЗВАНИЕ_МИГРАЦИИ
 ````bash
-python3 manage.py makemigrations kvantum
+python3 manage.py makemigrations kvantums
+python3 manage.py makemigrations personals
+python3 manage.py makemigrations students
 ````
 
 ###### Создание админа
