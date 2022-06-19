@@ -1,6 +1,15 @@
 from django.contrib import admin
 
-from .models import Teacher, Organization, Event, Staff
+from .models import Teacher, Organization, Event, Staff, StaffQualificationGroup
+
+
+@admin.register(StaffQualificationGroup)
+class StaffQualificationGroupList(admin.ModelAdmin):
+    #list_display = ('', 'organization_name')
+
+    class META:
+        verbose_name = 'Квалификационная группа (персонал)'
+        verbose_name_plural = 'Квалификационная группа (персонал)'
 
 
 @admin.register(Staff)

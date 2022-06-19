@@ -75,7 +75,7 @@ class GeeksModel(models.Model):
 
     account_id = models.ForeignKey(User, default=None, on_delete=models.CASCADE, verbose_name="Выберите пользователя из базы(Преподавателя)", error_messages={"unique":"Выберите пользователя из базы"})
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE,  help_text='Выберите организацию', verbose_name="Организация")
-    staff_photo = models.ImageField(upload_to=staff_directory_path, verbose_name="Фотография работника")
+    staff_photo = models.ImageField(upload_to='images/staff/photo/', verbose_name="Фотография работника")
     first_name = models.CharField(max_length=300, help_text='Введите ваше имя', verbose_name="Имя")
     surname = models.CharField(max_length=300, help_text='Введите вашу фамилию', verbose_name="Фамилия")
     patronymic = models.CharField(max_length=300, help_text='Введите ваше отчество', verbose_name="Отчество")
@@ -97,8 +97,8 @@ class GeeksModel(models.Model):
     retiree = models.BooleanField(default=False, help_text='Выберите один из вариантов', verbose_name='Пенсионер по выслуге лет, по умлочанию - НЕТ')
     inn = models.CharField(max_length=100, null=True, help_text='Введите ваш ИНН', verbose_name="ИНН")
     snils = models.CharField(max_length=100, null=True, help_text='введите ваш СНИЛС', verbose_name="СНИЛС")
-    passport_series = models.IntegerField(blank=True, null=True, validators=passport_01_regex_validator, help_text='Введите вашу серию паспорта 00 00',  verbose_name='Серия паспорта')
-    passport_number = models.IntegerField(blank=True, null=True, validators=passport_02_regex_validator, help_text='Выберите ваш номер паспорта 000000',  verbose_name='Номер паспорта')
+    passport_series = models.CharField(max_length=100, blank=True, null=True, validators=passport_01_regex_validator, help_text='Введите вашу серию паспорта 00 ОТСТУП 00',  verbose_name='Серия паспорта')
+    passport_number = models.CharField(max_length=100, blank=True, null=True, validators=passport_02_regex_validator, help_text='Выберите ваш номер паспорта 000000',  verbose_name='Номер паспорта')
     passport_issued_by = models.CharField(max_length=600, blank=True, null=True, help_text='Кем выдан паспорт УФМС / МВД',  verbose_name='Кем выдан паспорт УФМС / МВД')
     passport_date_of_issue = models.DateField(blank=True, null=True, help_text='Дата выдачи',  verbose_name='Дата выдачи')
     policy_series = models.CharField(max_length=256, blank=True, null=True, help_text='Введите серию полиса',  verbose_name='Серия полиса')
@@ -111,7 +111,7 @@ class GeeksModel(models.Model):
             return mark_safe('<img src="%s%s" width="150" height="150" />' % (f'{settings.MEDIA_URL}', self.staff_photo))
 
     class META:
-        verbose_name_plural = 'Персонал'
+        verbose_name_plural = 'Сотрудники'
 
     def __str__(self):
         return f'{self.surname} {self.first_name} {self.patronymic}'
