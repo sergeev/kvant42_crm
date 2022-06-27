@@ -23,14 +23,17 @@ class StudentRangList(admin.ModelAdmin):
     list_display = ('id', 'rang')
 
     class META:
-        verbose_name = 'Ранги учеников'
+        verbose_name = 'Ранг ученика'
         verbose_name_plural = 'Ранги учеников'
 
 
 @admin.register(Student)
 class StudentList(admin.ModelAdmin):
-    list_display = ('certificate', 'rang')
+    list_display = ('certificate', 'name_ot', 'name_fam', 'kvantum', 'rang')
+    #ordering = ('-create_at',)
+
+    search_fields = ['']
 
     class META:
-        verbose_name = 'Студенты'
+        verbose_name = 'Студент'
         verbose_name_plural = 'Студенты'

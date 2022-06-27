@@ -111,6 +111,7 @@ class GeeksModel(models.Model):
             return mark_safe('<img src="%s%s" width="150" height="150" />' % (f'{settings.MEDIA_URL}', self.staff_photo))
 
     class META:
+        verbose_name = 'Сотрудники'
         verbose_name_plural = 'Сотрудники'
 
     def __str__(self):
