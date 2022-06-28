@@ -7,7 +7,7 @@ from .models import Teacher, Organization, Event, Staff, StaffQualificationGroup
 class StaffQualificationGroupList(admin.ModelAdmin):
     #list_display = ('', 'organization_name')
 
-    class META:
+    class Meta:
         verbose_name = 'Квалификационная группа (персонал)'
         verbose_name_plural = 'Квалификационная группа (персонал)'
 
@@ -16,7 +16,7 @@ class StaffQualificationGroupList(admin.ModelAdmin):
 class StaffList(admin.ModelAdmin):
     list_display = ('account_id', 'organization')
 
-    class META:
+    class Meta:
         verbose_name = 'Сотрудники'
         verbose_name_plural = 'Сотрудники'
 
@@ -25,7 +25,7 @@ class StaffList(admin.ModelAdmin):
 class EventList(admin.ModelAdmin):
     list_display = ('staff_id', 'events_name')
 
-    class META:
+    class Meta:
         verbose_name = 'Мероприятия'
         verbose_name_plural = 'Мероприятия'
 
@@ -34,7 +34,7 @@ class EventList(admin.ModelAdmin):
 class TeacherList(admin.ModelAdmin):
     list_display = ('teacher_full_name', 'kvantum', 'organization_show')
 
-    class META:
+    class Meta:
         verbose_name = 'Персонал'
         verbose_name_plural = 'Персонал'
 
@@ -43,6 +43,6 @@ class TeacherList(admin.ModelAdmin):
 class OrganizationList(admin.ModelAdmin):
     list_display = ('id', 'organization_name')
 
-    class META:
+    class Meta:
         verbose_name = 'Организация'
         verbose_name_plural = 'Организации'

@@ -110,7 +110,7 @@ class GeeksModel(models.Model):
         if self.staff_photo != '':
             return mark_safe('<img src="%s%s" width="150" height="150" />' % (f'{settings.MEDIA_URL}', self.staff_photo))
 
-    class META:
+    class Meta:
         verbose_name = 'Сотрудники'
         verbose_name_plural = 'Сотрудники'
 

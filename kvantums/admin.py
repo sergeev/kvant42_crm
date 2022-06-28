@@ -7,6 +7,6 @@ from .models import Kvantum
 class KvantumList(admin.ModelAdmin):
     list_display = ('name', 'description', 'age', 'group_max', 'total_hours')
 
-    class META:
+    class Meta:
         verbose_name = 'Квантум'
         verbose_name_plural = 'Квантумы'

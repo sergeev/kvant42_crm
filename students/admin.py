@@ -22,7 +22,7 @@ class StudentGroupList(admin.ModelAdmin):
 class StudentRangList(admin.ModelAdmin):
     list_display = ('id', 'rang')
 
-    class META:
+    class Meta:
         verbose_name = 'Ранг ученика'
         verbose_name_plural = 'Ранги учеников'
 
@@ -34,6 +34,6 @@ class StudentList(admin.ModelAdmin):
 
     search_fields = ['']
 
-    class META:
+    class Meta:
         verbose_name = 'Студент'
         verbose_name_plural = 'Студенты'
