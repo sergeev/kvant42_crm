@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Шаблон для вывода персонала</title>
+</head>
+<body>
+<h2>Здесь будут все персонал</h2>
+{% for personal in personals %}
+<p>ID: #{{ personal.id }}</p>
+<h3>Name: {{ personal.first_name }}</h3>
+<em>{{ personal.organization }}</em>
+{% endfor %}
+</body>
+</html>

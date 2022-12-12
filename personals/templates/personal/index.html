@@ -1,0 +1,9 @@
+{% if latest_staff_list %}
+    <ul>
+    {% for staff in latest_staff_list %}
+        <li>{{ staff.first_name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No staff are available.</p>
+{% endif %}

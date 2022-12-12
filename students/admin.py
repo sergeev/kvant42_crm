@@ -5,7 +5,7 @@ from .models import StudentRang, Student, StudentGroup, StudentGroupRoom
 
 class StudentGroupRoomInline(admin.StackedInline):
     model = StudentGroupRoom
-    extra = 3
+    extra = 2
 
 
 @admin.register(StudentGroup)
@@ -15,6 +15,8 @@ class StudentGroupList(admin.ModelAdmin):
         (None, {'fields': ['group_time']}),
         ('Направление', {'fields': ['arrows'], 'classes': ['collapse']}),
     ]
+
+    # состав группы
     inlines = [StudentGroupRoomInline]
 
 
@@ -29,7 +31,7 @@ class StudentRangList(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentList(admin.ModelAdmin):
-    list_display = ('certificate', 'name_ot', 'name_fam', 'kvantum', 'rang')
+    list_display = ('certificate', 'name_ot', 'name_fam', 'kvantum', 'rang', 'student_checked', 'student_deleted')
     #ordering = ('-create_at',)
 
     search_fields = ['']

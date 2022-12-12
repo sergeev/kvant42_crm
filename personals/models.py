@@ -11,6 +11,7 @@ class Organization(models.Model):
     organization_name = models.CharField(max_length=200, verbose_name="Организация")
 
     class Meta:
+        verbose_name = "Организацию"
         verbose_name_plural = "Организации"
 
     def __str__(self):
@@ -21,6 +22,7 @@ class StaffQualificationGroup(models.Model):
     qualification_group = models.CharField(max_length=100, verbose_name="Квалификационная группа")
 
     class Meta:
+        verbose_name = "Квалификационную группу (персонал)"
         verbose_name_plural = "Квалификационная группа (персонал)"
 
     def __str__(self):
@@ -33,6 +35,10 @@ def staff_directory_path(instance, filename):
 
 
 class Staff(models.Model):
+    # user = models.OneToOneField(
+    #     settings.AUTH_USER_MODEL,
+    #     on_delete=models.PROTECT,
+    # )
 
     '''
     # creating a validator function
@@ -92,7 +98,7 @@ class GeeksModel(models.Model):
     qualification_group = models.ForeignKey(StaffQualificationGroup, on_delete=models.CASCADE, help_text='Введите квалификационную группу работника', verbose_name="Квалификационная группа")
     applicant_student = models.CharField(max_length=30, choices=APPLICATION_PYTE, help_text='Выберите из вариантов', verbose_name="Соискатель / Аспирант")
     start_work = models.DateField(null=True, help_text='Выберите дату начала трудовой деятельности', verbose_name="Дата начала трудовой деятельности")
-    end_work = models.DateField(null=True, help_text='Выберите дату окончания трудовой деятельности', verbose_name="Дата окончания трудовой деятельности")
+    end_work = models.DateField(blank=True, null=True, help_text='Выберите дату окончания трудовой деятельности', verbose_name="Дата окончания трудовой деятельности")
     underemployment = models.BooleanField(default=False, help_text='Выберите тип занятости', verbose_name='Неполная занятость(Да или нет)по умлочанию - НЕТ')
     retiree = models.BooleanField(default=False, help_text='Выберите один из вариантов', verbose_name='Пенсионер по выслуге лет, по умлочанию - НЕТ')
     inn = models.CharField(max_length=100, null=True, help_text='Введите ваш ИНН', verbose_name="ИНН")
@@ -111,10 +117,12 @@ class GeeksModel(models.Model):
             return mark_safe('<img src="%s%s" width="150" height="150" />' % (f'{settings.MEDIA_URL}', self.staff_photo))
 
     class Meta:
-        verbose_name = 'Сотрудники'
+        # добавление нового сотрудника
+        verbose_name = 'Сотрудника'
         verbose_name_plural = 'Сотрудники'
 
     def __str__(self):
+        #return self.user.get_username()
         return f'{self.surname} {self.first_name} {self.patronymic}'
 
 
@@ -132,6 +140,7 @@ class Teacher(models.Model):
     teacher_desc = models.CharField(max_length=500, blank=True, null=True,  verbose_name="Описание, образоваине и т.д")
 
     class Meta:
+        verbose_name = "Преподавателя"
         verbose_name_plural = "Преподаватели"
 
     def __str__(self):
@@ -160,17 +169,18 @@ class Event(models.Model):
     )
 
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE, help_text='Выберите педагога из списка',  verbose_name='Педагог')
-    events_name = models.CharField(max_length=400, help_text='Введите название мероприятия', verbose_name='Название мероприятия')
+    events_name = models.TextField(max_length=400, help_text='Введите название мероприятия', verbose_name='Название мероприятия')
     # Выставка / Конкурс / Конференция / Мастер-класс / Семинар
     events_name_show = models.CharField(max_length=50, choices=EVENT_NAMES_CHOICES, help_text='Выберите вид мероприятия',  verbose_name='Вид мероприятия')
     events_level = models.CharField(max_length=50, choices=EVENT_NAMES_CHOICES, help_text='Выберите уровень проведения',  verbose_name='Уровень проведения')
     events_form = models.CharField(max_length=50, choices=EVENT_FORM_CHOICES, help_text='Выберите форму участия',  verbose_name='Форма участия')
     events_status = models.CharField(max_length=50, choices=EVENT_STATUS_CHOICES, help_text='Выберите статус участия',  verbose_name='Статус участия')
-    events_concurs_name = models.CharField(max_length=400, help_text='Введите название конкурсного мероприятия',  verbose_name='Название конкурсного мероприятия')
+    events_concurs_name = models.TextField(max_length=400, help_text='Введите название конкурсного мероприятия',  verbose_name='Название конкурсного мероприятия')
     events_participation_year = models.DateField(blank=True, null=True, help_text='Введите год участия',  verbose_name='Год участия')
 
     def __str__(self):
         return self.events_name
 
     class Meta:
+        verbose_name = "Мероприятие"
         verbose_name_plural = "Мероприятия"
