@@ -5,7 +5,7 @@ from kvantums.models import Kvantum
 
 
 class StudentRang(models.Model):
-    rang = models.CharField(max_length=100, verbose_name="Ранг ученика")
+    rang = models.CharField(max_length=200, verbose_name="Ранг ученика")
 
     class Meta:
         verbose_name = "Ранг ученика"
@@ -13,6 +13,17 @@ class StudentRang(models.Model):
 
     def __str__(self):
         return self.rang
+
+
+class StudentShoolName(models.Model):
+    shool_name = models.CharField(max_length=200, verbose_name="Введите название школы")
+
+    class Meta:
+        verbose_name = "Название школы"
+        verbose_name_plural = "Название школы"
+
+    def __str__(self):
+        return self.shool_name
 
 
 class Student(models.Model):
@@ -28,7 +39,7 @@ class Student(models.Model):
     email_link = models.EmailField(blank=False, null=True, verbose_name="Email ученика")
     child_date_input = models.DateField('День рождения')
     gender = models.CharField(max_length=10, choices=GENDER, default='def', verbose_name='Пол')
-    school = models.CharField(max_length=200, verbose_name="Школа")
+    school = models.ForeignKey(StudentShoolName, on_delete=models.CASCADE, max_length=200, verbose_name="Школа")
     room = models.CharField(max_length=200, verbose_name="Класс")
     kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Квантум")
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name="Преподаватель")
@@ -45,21 +56,25 @@ class Student(models.Model):
         verbose_name = "Студента"
         verbose_name_plural = "Студенты"
 
+    def __unicode__(self):
+        return self.certificate
+
     def __str__(self):
         return self.certificate
 
 
 class StudentGroup(models.Model):
     teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE, verbose_name="Выберите преподавателя")
+    group_name = models.CharField(max_length=100, blank=False, null=True, verbose_name="Группа", help_text='Группа 4')
     arrows = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление")
     group_time = models.TimeField(verbose_name="Учебное время группы")
 
     class Meta:
-        verbose_name = "Группу"
+        verbose_name = "Всего групп"
         verbose_name_plural = "Группы"
 
     def __str__(self):
-        return "{}".format(self.teacher.__str__())
+        return "{} - {}".format(self.group_name.__str__(), self.teacher.__str__())
 
 
 class StudentGroupRoom(models.Model):

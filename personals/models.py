@@ -81,7 +81,7 @@ class GeeksModel(models.Model):
 
     account_id = models.ForeignKey(User, default=None, on_delete=models.CASCADE, verbose_name="Выберите пользователя из базы(Преподавателя)", error_messages={"unique":"Выберите пользователя из базы"})
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE,  help_text='Выберите организацию', verbose_name="Организация")
-    staff_photo = models.ImageField(upload_to='images/staff/photo/', verbose_name="Фотография работника")
+    staff_photo = models.ImageField(blank=True, upload_to='images/staff/photo/', verbose_name="Фотография работника")
     first_name = models.CharField(max_length=300, help_text='Введите ваше имя', verbose_name="Имя")
     surname = models.CharField(max_length=300, help_text='Введите вашу фамилию', verbose_name="Фамилия")
     patronymic = models.CharField(max_length=300, help_text='Введите ваше отчество', verbose_name="Отчество")
