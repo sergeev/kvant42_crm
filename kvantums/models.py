@@ -9,6 +9,7 @@ class Kvantum(models.Model):
     age = models.CharField(max_length=10, verbose_name="Возраст")
     group_max = models.CharField(max_length=20, verbose_name="Участников в группе")
     total_hours = models.CharField(max_length=20, verbose_name="Часов учебной программы")
+    program_doc = models.FileField(upload_to='files', verbose_name="Учебная программа PDF", default="none")
 
     class Meta:
         verbose_name = "Направление"

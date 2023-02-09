@@ -32,6 +32,7 @@ class Student(models.Model):
         ('Девочка', 'Девочка'),
         ('Мальчик', 'Мальчик'),
     )
+    student_photo = models.ImageField(upload_to='images', verbose_name="Фотография студента", default="")
     organization_show = models.ForeignKey(Organization, on_delete=models.CASCADE, verbose_name="Организация")
     certificate = models.CharField(max_length=200, verbose_name="Сертификат ученика")
     name_ot = models.CharField(max_length=200, verbose_name="Имя и Отчество")
