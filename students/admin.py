@@ -29,6 +29,7 @@ class StudentRangList(admin.ModelAdmin):
         verbose_name = 'Ранг ученика'
         verbose_name_plural = 'Ранги учеников'
 
+
 @admin.register(StudentShoolName)
 class StudentShoolName(admin.ModelAdmin):
     list_display = ('id', 'shool_name')
@@ -44,6 +45,8 @@ class StudentList(admin.ModelAdmin):
     #ordering = ('-create_at',)
 
     search_fields = ['certificate', 'name_ot', 'name_fam']
+
+    list_filter = ['student_checked']
 
     class Meta:
         verbose_name = 'Студент'

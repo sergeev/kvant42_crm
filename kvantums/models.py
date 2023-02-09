@@ -11,8 +11,8 @@ class Kvantum(models.Model):
     total_hours = models.CharField(max_length=20, verbose_name="Часов учебной программы")
 
     class Meta:
-        verbose_name = "Квантум"
-        verbose_name_plural = "Квантумы"
+        verbose_name = "Направление"
+        verbose_name_plural = "Направления"
 
     def __str__(self):
         return self.name

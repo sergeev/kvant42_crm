@@ -19,9 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', include('portal.urls')),
     path('admin/', admin.site.urls),
     path('personal/', include('personals.urls')),
-    path('kvantums/', include('kvantums.urls'))
+    path('kvantums/', include('kvantums.urls')),
 ]
 
 if settings.DEBUG:

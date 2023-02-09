@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'kvantums.apps.KvantumsConfig',
     'personals.apps.PersonalsConfig',
     'students.apps.StudentsConfig',
+    'portal.apps.PortalConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

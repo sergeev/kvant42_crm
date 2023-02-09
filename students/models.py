@@ -41,7 +41,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER, default='def', verbose_name='Пол')
     school = models.ForeignKey(StudentShoolName, on_delete=models.CASCADE, max_length=200, verbose_name="Школа")
     room = models.CharField(max_length=200, verbose_name="Класс")
-    kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Квантум")
+    kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление") # Бывший Квантумы:
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name="Преподаватель")
     inputs_name_legal_representative = models.CharField(max_length=500, verbose_name="Ф.И.О и данные законного представителя ребенка(ученика)")
     name_legal_representativeTelephone = models.CharField(max_length=500, verbose_name="Телефон для связи законного представителя ребенка(ученика)")

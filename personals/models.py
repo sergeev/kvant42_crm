@@ -128,7 +128,7 @@ class GeeksModel(models.Model):
 
 class Teacher(models.Model):
     teacher_full_name = models.ForeignKey(Staff, default=None, on_delete=models.CASCADE, verbose_name="Выберите пользователя из базы(Преподавателя)")
-    kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Квантум")
+    kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление")
     organization_show = models.ForeignKey(Organization, on_delete=models.CASCADE, verbose_name="Организация")
     images = models.ImageField(upload_to='images/teachers', verbose_name="Изображение")
     link_web_main = models.URLField(max_length=200, blank=True, null=True,  verbose_name="Ссылка на персональную страниц")
