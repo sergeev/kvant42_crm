@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
+    <title>{{ django|title }}</title>
+    {% if user.is_authenticated %}Hello, {{ user.username }}.{% endif %}
 </head>
 <body>
 
