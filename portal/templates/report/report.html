@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<h1>Отчеты педагогов</h1>
+<br>
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ф.И.О</th>
+      <th scope="col">Группа</th>
+      <th scope="col">Направление</th>
+      <th scope="col">Кол.во детей</th>
+      <th scope="col">Дата</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ report_all.teacher }}</td>
+      <td>{{ report_all.group_name }}</td>
+      <td>{{ report_all.arrows }}</td>
+      <td>{{ report_all.count_students }}</td>
+      <td>{{ report_all.fact_date_report }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<br/><br/>
+<a href="{% url 'portal:home' %}" class="btn btn-secondary">Назад</a>
+{% endblock %}

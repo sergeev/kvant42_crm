@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<h1>Отчеты педагогов</h1>
+<br>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Ф.И.О</th>
+        <th scope="col">Группа</th>
+        <th scope="col">Направление</th>
+        <th scope="col">Кол.во детей</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if report_show_ls %}
+    {% for report_show_l in report_show_ls %}
+
+    <tr>
+        <td>{{ report_show_l.teacher }}</td>
+        <td>{{ report_show_l.group_name }}</td>
+        <td>{{ report_show_l.arrows }}</td>
+        <td>{{ report_show_l.count_students }}</td>
+        <td>{{ report_show_l.fact_date_report }}</td>
+        <td><a href="{% url 'portal:reports' reports.id %}">{{ reports.id }}</a></td>
+    </tr>
+    {% endfor %}
+
+    {% endif %}
+    </tbody>
+</table>
+
+<br/><br/>
+<a href="{% url 'portal:home' %}" class="btn btn-secondary">Назад</a>
+
+
+{% endblock %}

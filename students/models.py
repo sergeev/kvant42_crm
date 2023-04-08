@@ -1,7 +1,9 @@
 from django.contrib import admin
+import datetime
 from django.db import models
 from personals.models import Organization, Teacher
 from kvantums.models import Kvantum
+from django.utils.translation import gettext as _
 
 
 class StudentRang(models.Model):
@@ -42,14 +44,16 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER, default='def', verbose_name='Пол')
     school = models.ForeignKey(StudentShoolName, on_delete=models.CASCADE, max_length=200, verbose_name="Школа")
     room = models.CharField(max_length=200, verbose_name="Класс")
-    kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление") # Бывший Квантумы:
+    kvantum = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление")  # Бывший Квантумы:
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name="Преподаватель")
-    inputs_name_legal_representative = models.CharField(max_length=500, verbose_name="Ф.И.О и данные законного представителя ребенка(ученика)")
-    name_legal_representativeTelephone = models.CharField(max_length=500, verbose_name="Телефон для связи законного представителя ребенка(ученика)")
+    inputs_name_legal_representative = models.CharField(max_length=500,
+                                                        verbose_name="Ф.И.О и данные законного представителя ребенка(ученика)")
+    name_legal_representativeTelephone = models.CharField(max_length=500,
+                                                          verbose_name="Телефон для связи законного представителя ребенка(ученика)")
     comments = models.TextField(max_length=1000, verbose_name="Комментарии к ученику")
     rang = models.ForeignKey(StudentRang, on_delete=models.CASCADE, verbose_name="Ранг ученика")
-    exp = models.CharField(max_length=1000, default=0, verbose_name="Опыт ученика(Для внетреннего магазина)")
-    coin = models.CharField(max_length=1000, default=0, verbose_name="Монеты ученика(Для внетреннего магазина)")
+    exp = models.CharField(max_length=1000, default=0, verbose_name="Опыт ученика(Для внутреннего магазина)")
+    coin = models.CharField(max_length=1000, default=0, verbose_name="Монеты ученика(Для внутреннего магазина)")
     student_checked = models.BooleanField(default=False, verbose_name="Ученик проверен")
     student_deleted = models.BooleanField(default=False, verbose_name="Ученик не активен(Выпускник)")
 
@@ -68,14 +72,20 @@ class StudentGroup(models.Model):
     teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE, verbose_name="Выберите преподавателя")
     group_name = models.CharField(max_length=100, blank=False, null=True, verbose_name="Группа", help_text='Группа 4')
     arrows = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление")
-    group_time = models.TimeField(verbose_name="Учебное время группы")
+    group_time_start = models.TimeField(verbose_name="Начало занятия")
+    group_time_end = models.TimeField(verbose_name="Конец занятия")
 
     class Meta:
         verbose_name = "Всего групп"
         verbose_name_plural = "Группы"
 
     def __str__(self):
-        return "{} - {}".format(self.group_name.__str__(), self.teacher.__str__())
+        return "{} - {} - {} - {} - {}".format(self.arrows.__str__(),
+                                     self.group_name.__str__(),
+                                     self.group_time_start.__str__(),
+                                     self.group_time_end.__str__(),
+                                     self.teacher.__str__()
+                                     )
 
 
 class StudentGroupRoom(models.Model):
@@ -83,11 +93,33 @@ class StudentGroupRoom(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = "Группу студента"
-        verbose_name_plural = "Группы студента"
+        verbose_name = "Ученик(а)"
+        verbose_name_plural = "Состав группы"
 
     def __str__(self):
-        return "{}".format(self.student.__str__())
+        return "ПФДО: {} Ф.И.О: {} {}".format(self.student.__str__(), self.student.name_ot.__str__(),
+                                              self.student.name_fam.__str__())
 
 
+class StudentTeacherReport(models.Model):
+    teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE, verbose_name="Выберите преподавателя")
+    #group_name = models.CharField(max_length=100, blank=False, null=True, verbose_name="Группа", help_text='Группа 4')
+    group_name = models.ForeignKey(StudentGroup, default=None, on_delete=models.CASCADE, verbose_name="Выберите группу")
+    arrows = models.ForeignKey(Kvantum, on_delete=models.CASCADE, verbose_name="Направление")
+    report_date = models.DateField('Дата отчета')
+    # Скрытая дата добавления отчета, для проверки фактического отчета.
+    fact_date_report = models.DateField(_('Фактическая дата'), default=datetime.date.today, editable=False)
+    count_students = models.CharField(max_length=10, blank=False, null=False, verbose_name="Учеников было", help_text="Введите количество учеников что были на уроке")
+    student_checked = models.BooleanField(default=False, verbose_name="Подтвержден")
+    class Meta:
+        verbose_name = "Отчет"
+        verbose_name_plural = "Отчеты (посещаемость)"
 
+    def __str__(self):
+        return "{} - {} - {} - {}".format(self.arrows.__str__(),
+                                     self.group_name.__str__(),
+                                     self.count_students.__str__(),
+                                     self.teacher.__str__())
+
+    def __unicode__(self):
+        return self.teacher

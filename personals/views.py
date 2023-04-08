@@ -26,7 +26,7 @@ def project(request):
 def index(request):
     latest_staff_list = Staff.first_name
     context = {'latest_staff_list': latest_staff_list}
-    return render(request, 'personal/index.html', context)
+    return render(request, 'personal/home.html', context)
 
 
 # def detail(request, account_id):

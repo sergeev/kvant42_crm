@@ -5,4 +5,4 @@ from django.db import models
 
 
 def index(request):
-    return render(request, 'kvantums/index.html')
+    return render(request, 'kvantums/home.html')
