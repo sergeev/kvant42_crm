@@ -1,32 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
+{% include 'navbar.html' %}
 <div class="col-md-6 offset-md-3">
-    {% if user.is_authenticated %}
     <h1>Добро пожаловать</h1>
 
     {% else %}
+    <div class="col-md-6 offset-md-3">
+        <h1>Авторизация</h1>
+        <form method="POST" action="{% url 'portal:home' %}">
+            {% csrf_token %}
 
-    <h1>Авторизация</h1>
-    <form method="POST" action="{% url 'portal:home' %}">
-        {% csrf_token %}
+            <form>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Введите имя пользователя"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Введите ваш пароль"
+                           required>
+                </div>
+                <!--            <div class="mb-3 form-check">-->
+                <!--                <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+                <!--                <label  class="form-check-label" for="exampleCheck1">Check me out</label>-->
+                <!--            </div>-->
+                <button type="submit" class="btn btn-secondary">Войти</button>
+            </form>
 
-        <form>
-            <div class="mb-3">
-                <input type="text" class="form-control" name="username" placeholder="Введите имя пользователя" required>
-            </div>
-            <div class="mb-3">
-                <input type="password" class="form-control" name="password" placeholder="Введите ваш пароль" required>
-            </div>
-<!--            <div class="mb-3 form-check">-->
-<!--                <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--                <label  class="form-check-label" for="exampleCheck1">Check me out</label>-->
-<!--            </div>-->
-            <button type="submit" class="btn btn-secondary">Войти</button>
+
         </form>
+    </div>
 
-
-    </form>
-</div>
-
-{% endif %}
-{% endblock %}
+    {% endif %}
+    {% endblock %}

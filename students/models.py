@@ -111,6 +111,7 @@ class StudentTeacherReport(models.Model):
     fact_date_report = models.DateField(_('Фактическая дата'), default=datetime.date.today, editable=False)
     count_students = models.CharField(max_length=10, blank=False, null=False, verbose_name="Учеников было", help_text="Введите количество учеников что были на уроке")
     student_checked = models.BooleanField(default=False, verbose_name="Подтвержден")
+
     class Meta:
         verbose_name = "Отчет"
         verbose_name_plural = "Отчеты (посещаемость)"
@@ -123,3 +124,6 @@ class StudentTeacherReport(models.Model):
 
     def __unicode__(self):
         return self.teacher
+
+    def get_absolute_url(self):
+        return "/reports/%i" % self.id

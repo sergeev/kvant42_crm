@@ -15,20 +15,18 @@
     </tr>
     </thead>
     <tbody>
-    {% if report_show_ls %}
-    {% for report_show_l in report_show_ls %}
+    {% for report_all in report_alls %}
 
     <tr>
-        <td>{{ report_show_l.teacher }}</td>
-        <td>{{ report_show_l.group_name }}</td>
-        <td>{{ report_show_l.arrows }}</td>
-        <td>{{ report_show_l.count_students }}</td>
-        <td>{{ report_show_l.fact_date_report }}</td>
-        <td><a href="{% url 'portal:reports' reports.id %}">{{ reports.id }}</a></td>
+        <td><a href="{{ report_all.get_absolute_url }}">{{ report_all.teacher }}</a></td>
+        <td>{{ report_all.group_name }}</td>
+        <td>{{ report_all.arrows }}</td>
+        <td>{{ report_all.count_students }}</td>
+        <td>{{ report_all.fact_date_report }}</td>
+        <td>{% if report_all.student_checked == 1 %}Под.{% endif %}{% if report_all.student_checked == 0 %}Новое{% endif %}</td>
+
     </tr>
     {% endfor %}
-
-    {% endif %}
     </tbody>
 </table>
 

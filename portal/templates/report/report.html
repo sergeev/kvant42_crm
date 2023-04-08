@@ -6,7 +6,7 @@
 <table class="table">
   <thead class="table-dark">
     <tr>
-      <th scope="col">#</th>
+
       <th scope="col">Ф.И.О</th>
       <th scope="col">Группа</th>
       <th scope="col">Направление</th>
@@ -16,16 +16,16 @@
   </thead>
   <tbody class="table-group-divider">
     <tr>
-      <th scope="row">1</th>
-      <td>{{ report_all.teacher }}</td>
-      <td>{{ report_all.group_name }}</td>
-      <td>{{ report_all.arrows }}</td>
-      <td>{{ report_all.count_students }}</td>
-      <td>{{ report_all.fact_date_report }}</td>
+
+      <td>{{ report_status.teacher }}</td>
+      <td>{{ report_status.group_name }}</td>
+      <td>{{ report_status.arrows }}</td>
+      <td>{{ report_status.count_students }}</td>
+      <td>{{ report_status.fact_date_report }}</td>
     </tr>
   </tbody>
 </table>
 
 <br/><br/>
-<a href="{% url 'portal:home' %}" class="btn btn-secondary">Назад</a>
+<a href="{% url 'portal:report_all' %}" class="btn btn-secondary">Назад</a>
 {% endblock %}

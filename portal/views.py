@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import SignUpForm
 from students.models import StudentTeacherReport
@@ -53,19 +54,28 @@ def register_user(request):
     return render(request, 'register.html', {'form': form})
 
 
-def report_show(request):
+def report_all(request):
     if request.user.is_authenticated:
-        report_show_l = StudentTeacherReport.objects.all()
-        return render(request, 'report/reports.html', {'report_show_l': report_show_l})
+        try:
+            report_alls = StudentTeacherReport.objects.all()
+            return render(request, "report/reports.html", {"report_alls": report_alls})
+        except ObjectDoesNotExist:
+            messages.success(request, "Нет данных в базе.")
+            return render(request, "report/reports.html")
     else:
         messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
         return redirect('portal:home')
 
 
-def report(request, pk):
+def report_show(request, pk):
     if request.user.is_authenticated:
-        report_all = StudentTeacherReport.objects.get(id=pk)
-        return render(request, 'report/report.html', {'report_all': report_all})
+        try:
+            report_status = StudentTeacherReport.objects.get(id=pk)
+            return render(request, 'report/report.html', {'report_status': report_status})
+        except ObjectDoesNotExist:
+            messages.success(request, "Нет данных в базе.")
+            return render(request, 'report/report.html', )
     else:
         messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
         return redirect('portal:home')
+
