@@ -75,7 +75,8 @@ def report_show(request, pk):
     if request.user.is_authenticated:
         try:
             report_status = StudentTeacherReport.objects.get(id=pk)
-            return render(request, 'report/report.html', {'report_status': report_status})
+            context = {'report_status': report_status}
+            return render(request, 'report/report.html', context)
         except ObjectDoesNotExist:
             messages.success(request, "Нет данных в базе.")
             return render(request, 'report/report.html', )

@@ -15,8 +15,7 @@ urlpatterns = [
     path('reports/<int:pk>', views.report_show, name='report_show'),
 
     path('staff/', views.staff_all, name='staff_all'),
-    path('staffs/<int:pk>', views.staff_show, name='staff_show')
-
+    path('staffs/<int:pk>', views.staff_show, name='staff_show'),
 ]
 
 if settings.DEBUG:
