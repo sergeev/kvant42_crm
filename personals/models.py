@@ -146,6 +146,9 @@ class Teacher(models.Model):
     def __str__(self):
         return "{}".format(self.teacher_full_name.__str__())
 
+    def get_absolute_url(self):
+        return "/staffs/%i" % self.id
+
 
 class Event(models.Model):
 

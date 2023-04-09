@@ -23,9 +23,9 @@ from app.views import index
 urlpatterns = [
     path('', include('portal.urls')),
     path('admin/', admin.site.urls),
-    path('personal/', include('personals.urls')),
-    path('kvantums/', include('kvantums.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path('personal/', include('personals.urls')),
+    #path('kvantums/', include('kvantums.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:

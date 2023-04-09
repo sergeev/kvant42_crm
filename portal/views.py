@@ -5,9 +5,13 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import SignUpForm
 from students.models import StudentTeacherReport
+from personals.models import Staff, Teacher
+from .models import PortalSettings
 
 
 def home(request):
+    # Настройки сайта
+    #portal_title = PortalSettings.get()
     # Проверка на вход в систему
     if request.method == 'POST':
         username = request.POST['username']
@@ -22,7 +26,7 @@ def home(request):
             messages.success(request, "Возника ошибка при входе систему")
             return redirect('portal:home')
 
-    return render(request, 'home.html', {})
+    return render(request, 'home.html')
 
 
 def login_user(request):
@@ -75,6 +79,33 @@ def report_show(request, pk):
         except ObjectDoesNotExist:
             messages.success(request, "Нет данных в базе.")
             return render(request, 'report/report.html', )
+    else:
+        messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
+        return redirect('portal:home')
+
+
+def staff_all(request):
+    if request.user.is_authenticated:
+        try:
+            staff_alls = Teacher.objects.all()
+            return render(request, "staff/show.html", {"staff_alls": staff_alls})
+        except ObjectDoesNotExist:
+            messages.success(request, "Нет данных в базе.")
+            return render(request, "staff/show.html")
+    else:
+        messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
+        return redirect('portal:home')
+
+
+def staff_show(request, pk):
+    if request.user.is_authenticated:
+        try:
+            teacher_personals = Teacher.objects.get(id=pk)
+            staff_personals = Staff.objects.get(id=pk)
+            return render(request, 'staff/personal.html', {'staff_personals': staff_personals, 'teacher_personals': teacher_personals })
+        except ObjectDoesNotExist:
+            messages.success(request, "Нет преподавателя в базе.")
+            return render(request, 'staff/personal.html', )
     else:
         messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
         return redirect('portal:home')

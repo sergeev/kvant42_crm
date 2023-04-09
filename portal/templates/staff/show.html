@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<h1>Список педагогов</h1>
+<br>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Ф.И.О</th>
+        <th scope="col">Направление</th>
+        <th scope="col">Организация</th>
+        <th scope="col">Примечание</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for staff_all in staff_alls %}
+
+    <tr>
+        <td><a href="{{ staff_all.get_absolute_url }}">{{ staff_all.teacher_full_name }}</a></td>
+        <td>{{ staff_all.kvantum }}</td>
+        <td>{{ staff_all.organization_show }}</td>
+        <td>{{ staff_all.teacher_desc }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br/><br/>
+<a href="{% url 'portal:home' %}" class="btn btn-secondary">Назад</a>
+
+
+{% endblock %}
