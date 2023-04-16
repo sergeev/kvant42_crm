@@ -16,6 +16,10 @@ urlpatterns = [
 
     path('staff/', views.staff_all, name='staff_all'),
     path('staffs/<int:pk>', views.staff_show, name='staff_show'),
+
+    path('arrows/', views.arrow_all, name='arrows'),
+    path('arrows/<int:pk>', views.arrow_show, name='context'),
+
 ]
 
 if settings.DEBUG:

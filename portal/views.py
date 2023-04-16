@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .forms import SignUpForm
 from students.models import StudentTeacherReport
 from personals.models import Staff, Teacher
+from kvantums.models import Kvantum
 from .models import PortalSettings
 
 
@@ -62,7 +63,9 @@ def report_all(request):
     if request.user.is_authenticated:
         try:
             report_alls = StudentTeacherReport.objects.all()
-            return render(request, "report/reports.html", {"report_alls": report_alls})
+            arrows = Kvantum.objects.all()
+            context = {"report_alls": report_alls, "arrows": arrows}
+            return render(request, "report/reports.html", context)
         except ObjectDoesNotExist:
             messages.success(request, "Нет данных в базе.")
             return render(request, "report/reports.html")
@@ -107,6 +110,36 @@ def staff_show(request, pk):
         except ObjectDoesNotExist:
             messages.success(request, "Нет преподавателя в базе.")
             return render(request, 'staff/personal.html', )
+    else:
+        messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
+        return redirect('portal:home')
+
+
+def arrow_all(request):
+    if request.user.is_authenticated:
+        try:
+            arrows = Kvantum.objects.all()
+            context = {'arrows': arrows}
+            return render(request, 'arrows/arrows.html', context)
+        except ObjectDoesNotExist:
+            messages.success(request, "Нет направления в базе.")
+            return render(request, 'arrows/arrows.html', )
+    else:
+        messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
+        return redirect('portal:home')
+
+
+def arrow_show(request, pk):
+    if request.user.is_authenticated:
+        try:
+            arrow_status = Kvantum.objects.get(id=pk)
+            report_status = StudentTeacherReport.objects.get(id=pk)
+            ok = arrow_status == report_status
+            context = {'arrow_status': arrow_status, 'report_status': report_status, 'ok': ok}
+            return render(request, 'arrows/show.html', context)
+        except ObjectDoesNotExist:
+            messages.success(request, "Нет данных в базе.")
+            return render(request, 'arrows/show.html', )
     else:
         messages.success(request, "Нужно войти в систему чтобы увидеть данные...")
         return redirect('portal:home')

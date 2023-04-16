@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'navbar.html' %}
+<br>
+<h1>Направления</h1>
+<br>
+<div class="row">
+    {% for arrow in arrows %}
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ arrow.name }}</h5>
+                <p class="card-text">{{ arrow.description }}.</p>
+                <a href="{{ report_all.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<a href="{% url 'portal:home' %}" class="btn btn-secondary">Назад</a>
+
+
+{% endblock %}
