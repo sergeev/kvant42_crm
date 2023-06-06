@@ -132,13 +132,15 @@ def arrow_all(request):
 def arrow_show(request, pk):
     if request.user.is_authenticated:
         try:
+            # Apply basic filtering
+            report_status = StudentTeacherReport.objects.filter(arrows_id='1')
             arrow_status = Kvantum.objects.get(id=pk)
-            report_status = StudentTeacherReport.objects.get(id=pk)
-            ok = arrow_status == report_status
-            context = {'arrow_status': arrow_status, 'report_status': report_status, 'ok': ok}
-            return render(request, 'arrows/show.html', context)
+            report_alls = StudentTeacherReport.objects.all()
+            arrows = Kvantum.objects.all()
+            #report_status = StudentTeacherReport.objects.get(id=pk)
+            return render(request, 'arrows/show.html', {'report_status': report_status, 'arrow_status': arrow_status, 'report_alls': report_alls, 'arrows': arrows})
         except ObjectDoesNotExist:
-            messages.success(request, "Нет данных в базе.")
+            messages.success(request, "Нет данного направления в базе!")
             return render(request, 'arrows/show.html', )
     else:
         messages.success(request, "Нужно войти в систему чтобы увидеть данные...")

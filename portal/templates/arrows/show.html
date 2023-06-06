@@ -2,22 +2,110 @@
 {% block content %}
 {% include 'navbar.html' %}
 <br>
-<h1>Направления</h1>
+<h1>Направление {{ arrow_status.name }}</h1>
+<br>
+<div class="card border-warning">
+  <div class="card-header">
+    Чем занимаются {{ arrow_status.name }}-разработчики
+  </div>
+  <div class="card-body">
+<!--    <h5 class="card-title">Special title treatment</h5>-->
+    <p class="card-text">Простыми словами — пишут программы, которые могут быть применимы почти в любой сфере IT. В практической части наш курс ориентирован на бэкенд веб-приложений, но навыки, полученные на курсе, позволяют нашим выпускникам выбрать любую область деятельности.</p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+  </div>
+</div>
+<br>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+       <div class="card h-100">
+      <div class="card-body">
+        <h5><center>Возраст</center></h5>
+          <p>
+          <center>
+          <h5>{{ arrow_status.age }} лет</h5>
+      </center>
+          </p>
+      </div>
+       </div>
+    </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5><center>Группа</center></h5>
+          <p>
+          <center>
+          <h5>{{ arrow_status.group_max }} человек</h5>
+      </center>
+          </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5><center>Учебная программа</center></h5>
+          <p>
+          <center>
+          <h5>{{ arrow_status.total_hours }} часов</h5>
+      </center>
+          </p>
+      </div>
+    </div>
+  </div>
+</div>
 <br>
 <div class="row">
-    {% for arrow in arrows %}
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">{{ arrow.name }}</h5>
-                <p class="card-text">{{ arrow.description }}.</p>
-                <a href="{{ report_all.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+<!--                <h5 class="card-title">{{ arrow_status.name }}</h5>-->
+                <p class="card-text">{{ arrow_status.description }}</p>
             </div>
         </div>
         <br>
     </div>
-    {% endfor %}
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+<!--                <h5 class="card-title">{{ arrow_status.name }}</h5>-->
+                <p class="card-text">{{ arrow_status.description_full }}</p>
+            </div>
+        </div>
+        <br>
+    </div>
 </div>
+<br>
+
+<h1>Отчеты педагогов</h1>
+<br>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Ф.И.О</th>
+        <th scope="col">Группа</th>
+        <th scope="col">Направление</th>
+        <th scope="col">Кол.во детей</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for report_all in report_alls %}
+    {% if arrows.all.0.id == report_status %}
+    <tr>
+        <td><a href="{{ report_all.get_absolute_url }}">{{ report_all.teacher }}</a></td>
+        <td>{{ report_all.group_name }}</td>
+        <td>{{ report_all.arrows }}</td>
+        <td>{{ report_all.count_students }}</td>
+        <td>{{ report_all.fact_date_report }}</td>
+        <td>{% if report_all.student_checked == 1 %}Под.{% endif %}{% if report_all.student_checked == 0 %}Новое{% endif %}
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+
 <br>
 <a href="{% url 'portal:home' %}" class="btn btn-secondary">Назад</a>
 
